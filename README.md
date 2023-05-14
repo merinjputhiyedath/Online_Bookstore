@@ -15,6 +15,8 @@ Bookstore with FastAPI
 7. Application should now be running on port 8000
 
 # List of Available APIs
+Please click the link -> [API documentation](https://merinjputhiyedath.github.io/CPSC449_Project_Finals/) for a detailed swagger view into each of the APIs used
+
 ![Available APIs](/Screenshots/AvailableAPIs.png)
 
 
