@@ -1,0 +1,647 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Index",
+        "operationId": "index__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "summary": "List Books",
+        "operationId": "list_books_books_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List all Books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Books Books Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BookModel" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Book",
+        "operationId": "create_book_books_post",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Add new Book",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/books/{book_id}": {
+      "get": {
+        "summary": "Get A Book",
+        "operationId": "get_a_book_books__book_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Book Id",
+              "type": "string"
+            },
+            "name": "book_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fetch an existing Book by ID",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      },
+      "put": {
+        "summary": "Get A Book",
+        "operationId": "get_a_book_books__book_id__put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Book Id",
+              "type": "string"
+            },
+            "name": "book_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateBookModel" } } },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Update an existing Book by ID",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Book",
+        "operationId": "delete_book_books__book_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Book Id",
+              "type": "string"
+            },
+            "name": "book_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete a Book",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "summary": "List Books By Title",
+        "operationId": "list_books_by_title_search_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Title",
+              "type": "string"
+            },
+            "name": "title",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Author",
+              "type": "string"
+            },
+            "name": "author",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Min Price",
+              "minimum": 0.0,
+              "type": "integer",
+              "default": 0
+            },
+            "name": "min_price",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Max Price",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1000
+            },
+            "name": "max_price",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Books by title",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Books By Title Search Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BookModel" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/search/title/{title}": {
+      "get": {
+        "summary": "List Books By Title",
+        "operationId": "list_books_by_title_search_title__title__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Title",
+              "type": "string"
+            },
+            "name": "title",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Books by title",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Books By Title Search Title  Title  Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BookModel" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/search/author/{author}": {
+      "get": {
+        "summary": "List Books By Author",
+        "operationId": "list_books_by_author_search_author__author__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Author",
+              "type": "string"
+            },
+            "name": "author",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Books by author",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Books By Author Search Author  Author  Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BookModel" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/search/price": {
+      "get": {
+        "summary": "List Books By Price",
+        "operationId": "list_books_by_price_search_price_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Min Price",
+              "minimum": 0.0,
+              "type": "integer",
+              "default": 0
+            },
+            "name": "min_price",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Max Price",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1000
+            },
+            "name": "max_price",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Page",
+              "exclusiveMinimum": 0.0,
+              "type": "integer",
+              "default": 1
+            },
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List Books by price range",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response List Books By Price Search Price Get",
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/BookModel" }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/reports/total_books": {
+      "get": {
+        "summary": "Total Books Report",
+        "operationId": "total_books_report_reports_total_books_get",
+        "responses": {
+          "200": {
+            "description": "Total number of books in the bookstore",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Total Books Report Reports Total Books Get",
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reports/top_5_selling": {
+      "get": {
+        "summary": "Top Selling Books Report",
+        "operationId": "top_selling_books_report_reports_top_5_selling_get",
+        "responses": {
+          "200": {
+            "description": "The top 5 bestselling books in the bookstore",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Top Selling Books Report Reports Top 5 Selling Get",
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reports/top_5_stock_authors": {
+      "get": {
+        "summary": "Top Books Authors Report",
+        "operationId": "top_books_authors_report_reports_top_5_stock_authors_get",
+        "responses": {
+          "200": {
+            "description": "The top 5 authors with the most number of book copies in the bookstore",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Top Books Authors Report Reports Top 5 Stock Authors Get",
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{id}/addStock": {
+      "put": {
+        "summary": "Update Book Stock",
+        "operationId": "update_book_stock__id__addStock_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Qty",
+              "exclusiveMinimum": 0.0,
+              "type": "integer"
+            },
+            "name": "qty",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update stock",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    },
+    "/{id}/addSale": {
+      "put": {
+        "summary": "Update Book Sale",
+        "operationId": "update_book_sale__id__addSale_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Qty",
+              "exclusiveMinimum": 0.0,
+              "type": "integer"
+            },
+            "name": "qty",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update sale",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/BookModel" } } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HTTPValidationError" } } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookModel": {
+        "title": "BookModel",
+        "required": [ "title", "author", "description", "price", "stock" ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "title": " Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "The name of the book",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "author": {
+            "title": "The name of the author",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "description": {
+            "title": "A short description of the book",
+            "maxLength": 300,
+            "type": "string"
+          },
+          "price": {
+            "title": "A price of the book",
+            "minimum": 0.0,
+            "type": "number"
+          },
+          "stock": {
+            "title": "Number of books left in stock",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "sold": {
+            "title": "Number of books sold",
+            "minimum": 0.0,
+            "type": "integer",
+            "default": 0
+          }
+        },
+        "example": {
+          "title": "Introduction to Web Backend",
+          "author": "Jane Doe",
+          "description": "A simple introduction to Web Backend Development",
+          "price": 50.0,
+          "stock": 3,
+          "sold": 10
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "UpdateBookModel": {
+        "title": "UpdateBookModel",
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "The name of the book",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "author": {
+            "title": "The name of the author",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "description": {
+            "title": "A short description of the book",
+            "maxLength": 300,
+            "type": "string"
+          },
+          "price": {
+            "title": "A price of the book",
+            "minimum": 0.0,
+            "type": "number"
+          },
+          "stock": {
+            "title": "Number of books left in stock",
+            "minimum": 0.0,
+            "type": "integer"
+          }
+        },
+        "example": {
+          "title": "Introduction to Web Backend",
+          "author": "Jane Doe",
+          "description": "A simple introduction to Web Backend Development",
+          "price": 50.0,
+          "stock": 3,
+          "sold": 10
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [ "loc", "msg", "type" ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                { "type": "string" },
+                { "type": "integer" }
+              ]
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
