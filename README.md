@@ -6,7 +6,7 @@ Bookstore with FastAPI
 2. Merin Joseph (CWID 885869974)
 
 # How to Setup and run
-1. Ensure MongoDB is running
+1. Ensure MongoDB is running (we used [MongoDB Cloud Atlas Cluster](https://www.mongodb.com/cloud))
 2. Update MongoDB Connection credentials in main.py
 3. Create a python virtual environment (we used python 3.10.11) `python -m venv fenv`
 5. Activate the created virtual environment `fenv\Scripts\activate.bat`
