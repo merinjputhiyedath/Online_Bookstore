@@ -271,10 +271,11 @@ async def total_books_report():
 
 ###
 # Create an aggregate view of the top 5 best selling books in the bookstore
-# This is achieived using a 3-stage aggregation query
+# This is achieived using a 4-stage aggregation query
 # 1) MATCH : Ignoring all books with 0 copies sold
 # 2) SORT  : Sorting all books in decending order of copies sold
 # 3) LIMIT : Limiting the results to only the first 5 books in the sorted list
+# 4) PROJECT : Suppressing the _id field and remapping field names to better match the response
 ###
 @app.get("/reports/top_5_selling", response_description="The top 5 bestselling books in the bookstore", response_model=list)
 async def top_selling_books_report():
