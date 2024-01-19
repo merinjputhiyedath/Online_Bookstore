@@ -1,4 +1,4 @@
-# CPSC449_Project_Finals
+# Online Bookstore 
 Bookstore with FastAPI
 
 # Team Members:
